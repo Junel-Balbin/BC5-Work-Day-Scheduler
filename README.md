@@ -7,9 +7,11 @@
 
 ## Installation:
 * On a web browser please follow the link to begin exploring. [Work Day Scheduler.](https://junel-balbin.github.io/BC5-Work-Day-Scheduler/)
+
 * Accessible on any mobile device and tablet.
 
 ## Usage:
+<img src="./assets/images/ss1.png">
 
 * On the top of the page you will locate the displayed current day, date & time.
 
