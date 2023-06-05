@@ -1,4 +1,4 @@
-// Displays today's date, date and time.
+// Displays today's day, date and current time.
 function nowTime() {
   var dateElement = $("#date");
   var timeElement = $("#time");
@@ -10,7 +10,8 @@ function nowTime() {
 
 $(function () {
   var currentHour = dayjs().format("H");
-// saveBtn click listener.  Save in local storage.
+
+// Event listener for saveBtn click.  Saves the text in local storage.
   function textArea() {
     $(".saveBtn").on("click", function() {
       var text = $(this).siblings(".description").val();
@@ -20,6 +21,7 @@ $(function () {
     });
   }
 
+// Sets the color of each time block based on the current hour.
   function hourColor() {
     $(".time-block").each(function() {
       var blockHour = parseInt($(this).attr("id"));
@@ -29,6 +31,7 @@ $(function () {
     });
   }
 
+// Updates the color of each time block based on the current hour.
   function updateColor() {
     $(".time-block").each(function() {
       var blockHour = parseInt($(this).attr("id"));
@@ -42,20 +45,21 @@ $(function () {
     });
   }
 
-// function for time block and local storage.
+// Loads the saved text from local storage into the appropriate time blocs.
     $(".time-block").each(function() {
       var time = $(this).attr("id");
       var text = localStorage.getItem(time);
       $(this).find(".description").val(text);
     });
 
-// function for Clear All button.
+// Event listener for the Clear All Button.  Clears all text and local storage.
     $("#clearBtn").click(function(event) {
       event.preventDefault();
       $("textarea").val("");
       localStorage.clear();
   });
 
+// Call the necessary functions on page load.
   hourColor();
   textArea();
   updateColor();
