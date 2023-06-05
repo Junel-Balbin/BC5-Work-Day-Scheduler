@@ -1,5 +1,5 @@
 // Displays today's date, date and time.
-function updateTime() {
+function nowTime() {
   var dateElement = $("#date");
   var timeElement = $("#time");
   var currentDate = dayjs().format("dddd, MMMM D, YYYY");
@@ -8,16 +8,10 @@ function updateTime() {
   timeElement.text(currentTime);
 }
 
-// TODO: Add a listener for click events on the save button. This code should
-// use the id in the containing time-block as a key to save the user input in
-// local storage. HINT: What does `this` reference in the click listener
-// function? How can DOM traversal be used to get the "hour-x" id of the
-// time-block containing the button that was clicked? How might the id be
-// useful when saving the description in local storage?
 $(function () {
   var currentHour = dayjs().format("H");
 // saveBtn click listener.  Save in local storage.
-  function textEntry() {
+  function textArea() {
     $(".saveBtn").on("click", function() {
       var text = $(this).siblings(".description").val();
       var time = $(this).parent().attr("id");
@@ -26,16 +20,27 @@ $(function () {
     });
   }
 
+  function hourColor() {
+    $(".time-block").each(function() {
+      var blockHour = parseInt($(this).attr("id"));
+      $(this).toggleClass("past", blockHour < currentHour);
+      $(this).toggleClass("present", blockHour === currentHour);
+      $(this).toggleClass("future", blockHour > currentHour);
+    });
+  }
 
-    // TODO: Add code to apply the past, present, or future class to each time
-    // block by comparing the id to the current hour. HINTS: How can the id
-    // attribute of each time-block be used to conditionally add or remove the
-    // past, present, and future classes? How can Day.js be used to get the
-    // current hour in 24-hour time?
-    //
-    // TODO: Add code to get any user input that was saved in localStorage and set
-    // the values of the corresponding textarea elements. HINT: How can the id
-    // attribute of each time-block be used to do this?
+  function updateColor() {
+    $(".time-block").each(function() {
+      var blockHour = parseInt($(this).attr("id"));
+      if (blockHour == currentHour) {
+        $(this).removeClass("past future").addClass("present");
+      } else if (blockHour < currentHour) {
+        $(this).removeClass("future present").addClass("past");
+      } else {
+        $(this).removeClass("past present").addClass("future");
+      }
+    });
+  }
 
 // function for time block and local storage.
     $(".time-block").each(function() {
@@ -51,5 +56,9 @@ $(function () {
       localStorage.clear();
   });
 
-    
-  });
+  hourColor();
+  textArea();
+  updateColor();
+  setInterval(nowTime);
+
+});
