@@ -16,7 +16,7 @@ $(function () {
       var text = $(this).siblings(".description").val();
       var time = $(this).parent().attr("id");
 
-      localStorage.setItem(text, time);
+      localStorage.setItem(time, text);
     });
   }
 
@@ -51,8 +51,8 @@ $(function () {
 
 // function for Clear All button.
     $("#clearBtn").click(function(event) {
-      event.preventDefault;
-      $("textArea").val("");
+      event.preventDefault();
+      $("textarea").val("");
       localStorage.clear();
   });
 
